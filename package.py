@@ -20,6 +20,6 @@ class Package:
     def __str__(self):
         return (f"ID: {str(self.id_num)} Address: {self.address} City: {self.city} "
                 f"State: {self.state} Zip: {self.zip} "
-                f"Deadline: {self.deadline} Weight: {self.weight} "
-                f"Special Notes: {self.special_notes}"
+                f"Deadline: {self.deadline} Weight: {str(self.weight)} "
+                f"Special Notes: {self.special_notes} "
                 f"Delivery Time: {self.delivery_time} Loading Time: {self.loading_time}")

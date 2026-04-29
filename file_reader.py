@@ -37,3 +37,11 @@ def load_packages_from_csv(filename):
             packages.append(package)
 
     return packages #returns list of package objects
+
+#TODO <read data from distance table csv and >
+'''def load_addresses_from_csv(filename):
+    addresses = []
+    with open(filename) as csvfile:'''
+
+
+

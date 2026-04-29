@@ -24,7 +24,7 @@ class HashTable:
                 pair[1] = package_object
                 return True
 
-        #
+        #add key and value "list" to bucket
         bucket_index_list.append([package_object.id_num, package_object])
         return True
         #print("The package with id: " + str(package_object.id_num) + " went in bucket: " + str(bucket_index))
@@ -32,6 +32,7 @@ class HashTable:
 
 
     #Searches hash table if package exists returns package if found, or None
+    #O(n)
     def lookup(self, package_object):
 
         #get bucket index and corresponding list inside using hash function and bucket index
