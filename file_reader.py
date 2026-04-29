@@ -38,10 +38,32 @@ def load_packages_from_csv(filename):
 
     return packages #returns list of package objects
 
-#TODO <read data from distance table csv and >
-'''def load_distances_from_csv(filename):
-    addresses = []
-    with open(filename) as csvfile:'''
+#Read CSV file and load distance data into dictionary
+#O(n) takes file name as a parameter, returns dictionary of address with corresponding index, and
+#list of distances to index distance values
+def load_distances_from_csv(filename):
+    distance_dictionary = {}
+    dictionary_index = 0
+    distances = []
+    with open(filename) as csvfile:
+        csvreader = csv.reader(csvfile, delimiter=',')
 
+        for row in csvreader:
+
+            #pop address off
+            address = row.pop(0)
+
+            #Insert address into dictionary Key = address, value = index
+            distance_dictionary[address] = dictionary_index
+
+            #Append the rest of distance to list (which creates list of lists)
+            distances.append(row)
+
+
+            dictionary_index += 1
+            #print(address , ":" , distance_dictionary[address])
+
+
+        return distance_dictionary, distances
 
 

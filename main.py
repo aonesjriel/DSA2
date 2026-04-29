@@ -15,16 +15,14 @@ learningHash = HashTable()
 
 
 
-for package in available_packages:
+'''for package in available_packages:
     learningHash.insert(package)
 
 
 
 for package in available_packages:
-    print(learningHash.lookup(package))
+    print(learningHash.lookup(package))'''
 
 
-
-
-
+possible_addresses, distances = load_distances_from_csv("distance_file.csv")
 
