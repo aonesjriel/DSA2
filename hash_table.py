@@ -36,11 +36,11 @@ class HashTable:
     def lookup(self, package_object):
 
         #get bucket index and corresponding list inside using hash function and bucket index
-        bucket_index = package_object.id_num % self.size
+        bucket_index = package_object % self.size
         bucket_index_list = self.list[bucket_index]
 
         for pair in bucket_index_list:
-            if pair[0] == package_object.id_num:
+            if pair[0] == package_object:
                 return pair[1]
 
         return None
