@@ -22,9 +22,9 @@ for package in available_packages:
     package_table.insert(package)
 
 
-truck1 = [33, 26]
-truck2 = []
-truck3 = []
+truck1 = [1,2,4,5,7,8,10,11,12,13,14,15,16,17,19,20]
+truck2 = [3,18,21,22,23,24,25,26,27,29,30,31,33,34,35,36,38]
+truck3 = [6,9,25,28,32,37,39,40]
 
 
 
