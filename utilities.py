@@ -25,8 +25,8 @@ def get_distance(address_a, address_b):
 #Returns nearest package along with the distance
 #O(n)
 def find_nearest_package(truck_location, list_of_packages, package_table):
-    #distances = load_distances_from_csv()
-    #addresses = load_addresses_from_csv()
+
+    print(list_of_packages)
 
     #keep track of smallest distance; set at 100 by default
     current_minimum = 100
@@ -55,28 +55,27 @@ def find_nearest_package(truck_location, list_of_packages, package_table):
 def package_delivery(packages_list, start_time, package_table):
     speed = 18
     total_distance = 0
-    time_elapsed_since_start = None
-    temp_datetime = datetime.combine(date.today(), start_time)
+
+    delivery_list = packages_list.copy()
 
     #starting point of truck/ will update to current location of truck
     current_truck_location = 'HUB'
 
     for package in packages_list:
 
-        print("list of packages: ", packages_list)
-        package_to_deliver, distance = find_nearest_package(current_truck_location, packages_list, package_table)
+        package_to_deliver, distance = find_nearest_package(current_truck_location, delivery_list, package_table)
         total_distance += distance
 
         #remove package that is being delivered from list of packages
-        packages_list.pop(packages_list.index(package))
-
+        delivery_list.pop(delivery_list.index(package_to_deliver.id_num))
 
         #calculate time to move to location time = distance / speed (18 MPH)
-        time_elapsed_since_start = temp_datetime + timedelta(hours = distance / speed)
+        start_time = start_time + timedelta(hours = distance / speed)
 
         #TODO fix delivery time problem --> only keeping track of individual times not total elapsed time
         #timestamp delivery
-        package_to_deliver.delivery_time = time_elapsed_since_start
+        package_to_deliver.delivery_time = start_time
+        print("Package ", package_to_deliver.id_num, " delivered at:  ", package_to_deliver.delivery_time.time())
 
 
         #TODO fix this problem --> truck location not changing?
@@ -84,7 +83,7 @@ def package_delivery(packages_list, start_time, package_table):
         current_truck_location = package_to_deliver.address
         print("truck location: ", current_truck_location)
 
-    print("list of packages: ", packages_list)
+    print("list of packages: ", delivery_list)
     print("truck location: ", current_truck_location)
 
-    return total_distance, time_elapsed_since_start.time()
+    return total_distance, start_time.time()
