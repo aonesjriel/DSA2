@@ -2,6 +2,12 @@ from datetime import *
 
 from file_reader import load_distances_from_csv, load_addresses_from_csv
 
+def load_title():
+    print("-----------------------------------")
+    print("      WGUPS Routing Program        ")
+    print("-----------------------------------")
+
+
 #Function takes in two addresses and returns the distance between them by referencing the
 #address dictionary and the distances 2d list
 #O(1)
@@ -26,7 +32,7 @@ def get_distance(address_a, address_b):
 #O(n)
 def find_nearest_package(truck_location, list_of_packages, package_table):
 
-    print(list_of_packages)
+    #print(list_of_packages)
 
     #keep track of smallest distance; set at 100 by default
     current_minimum = 100
@@ -56,10 +62,17 @@ def package_delivery(packages_list, start_time, package_table):
     speed = 18
     total_distance = 0
 
+    #make a copy of list so no errors occur when popping off delivered package
     delivery_list = packages_list.copy()
 
     #starting point of truck/ will update to current location of truck
     current_truck_location = 'HUB'
+
+    #set loading time for packages
+    for package in packages_list:
+        p = package_table.lookup(package)
+        p.loading_time = start_time.time()
+        p.status = "en route"
 
     for package in packages_list:
 
@@ -72,18 +85,23 @@ def package_delivery(packages_list, start_time, package_table):
         #calculate time to move to location time = distance / speed (18 MPH)
         start_time = start_time + timedelta(hours = distance / speed)
 
-        #TODO fix delivery time problem --> only keeping track of individual times not total elapsed time
+
         #timestamp delivery
-        package_to_deliver.delivery_time = start_time
-        print("Package ", package_to_deliver.id_num, " delivered at:  ", package_to_deliver.delivery_time.time())
+        package_to_deliver.status = "delivered"
+        package_to_deliver.delivery_time = start_time.time()
+        #print("Package ", package_to_deliver.id_num, " delivered at:  ", package_to_deliver.delivery_time.time())
 
 
-        #TODO fix this problem --> truck location not changing?
+
         #move truck to current package_to_deliver.address
         current_truck_location = package_to_deliver.address
-        print("truck location: ", current_truck_location)
+        #print("truck location: ", current_truck_location)
+        #print("")
 
-    print("list of packages: ", delivery_list)
-    print("truck location: ", current_truck_location)
+    #add time and distance to get back to hub
+    return_home = float(get_distance('HUB', current_truck_location))
+    start_time = start_time + timedelta(hours = return_home / speed)
+    total_distance += return_home
+
 
     return total_distance, start_time.time()

@@ -1,7 +1,8 @@
+from datetime import time
 class Package:
 
     #Constructor: Complexity: O(1)
-    def __init__(self, id_num, address, city, state, zipcode, deadline, weight, special_notes, delivery_time, loading_time):
+    def __init__(self, id_num, address, city, state, zipcode, deadline, weight, special_notes, status):
         self.id_num = id_num
         self.address = address
         self.city = city
@@ -11,8 +12,13 @@ class Package:
         self.weight = weight
         self.special_notes = special_notes
 
-        self.delivery_time = "None"
-        self.loading_time = "None"
+        #default time
+        self.delivery_time = time(hour=0, minute=0, second=0, microsecond=0)
+        self.loading_time = time(hour=0, minute=0, second=0, microsecond=0)
+        self.status = status
+
+        #set default to 0 for no truck number
+        self.truck_number = 0
 
 
 
@@ -22,4 +28,17 @@ class Package:
                 f"State: {self.state} Zip: {self.zip} "
                 f"Deadline: {self.deadline} Weight: {str(self.weight)} "
                 f"Special Notes: {self.special_notes} "
-                f"Delivery Time: {self.delivery_time} Loading Time: {self.loading_time}")
+                f"Delivery Time: {self.delivery_time} Loading Time: {self.loading_time} "
+                f"Status: {self.status} " f"Truck Number: {self.truck_number}")
+
+
+    def check_status(self, user_time):
+        if self.delivery_time is None:
+            self.status = "DELAYED"
+
+        if self.delivery_time < user_time:
+            self.status = "delivered"
+        elif self.delivery_time > user_time:
+            self.status = "en route"
+        if self.loading_time > user_time:
+            self.status = "at hub"

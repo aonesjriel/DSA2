@@ -30,7 +30,7 @@ def load_packages_from_csv(hashtable):
                 special_notes = row[7]
 
             #create new package with details
-            package = Package(id_num, address, city, state, zipcode, deadline, weight, special_notes, "None", "None")
+            package = Package(id_num, address, city, state, zipcode, deadline, weight, special_notes,"At hub")
             #add package to hash table
             hashtable.insert(package)
 
