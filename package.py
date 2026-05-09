@@ -32,6 +32,8 @@ class Package:
                 f"Status: {self.status} " f"Truck Number: {self.truck_number}")
 
 
+    #O(1)
+    #Checks if status should be updated based on the time user will enter in main
     def check_status(self, user_time):
         if self.delivery_time is None:
             self.status = "DELAYED"
